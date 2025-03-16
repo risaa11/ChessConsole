@@ -9,57 +9,103 @@
 
 int main()
 {
-	if(selectStartColor())
+	if (selectGameMode())
 	{
-		bool endGameCheck = false;
-		SetConsoleOutputCP(CP_UTF8);
-		SetConsoleCP(CP_UTF8);
-		const int size = 8;
-		Figure** map = mapCreate(size);
-		firstFillingMap(map, size);
-		do
+		if (selectStartColor())
 		{
-			endGameCheck = false;
-
-			printMap(map, size);
-
-			matCheck(map, size, false);
-
-			if (!player.getMate())
+			bool endGameCheck = false;
+			SetConsoleOutputCP(CP_UTF8);
+			SetConsoleCP(CP_UTF8);
+			const int size = 8;
+			Figure** map = mapCreate(size);
+			firstFillingMap(map, size);
+			do
 			{
-				if (!player.getPlayerTurn())
-					botTurn(map, size);
-				else
-					stepFigure(map, size);
-			}
-			else
-			{
-				if (!player.getPlayerTurn())
+				endGameCheck = false;
+
+				printMap(map, size);
+
+				matCheck(map, size, false);
+
+				if (!player.getMate())
 				{
-					if (!botMateTurn(map, size))
-					{
-						return 0;
-					}
+					if (player.getPlayerTurn())
+						botTurn(map, size);
 					else
-					{
-						player.changeColorStep();
-						player.changePlayerTurn();
-					}
+						stepFigure(map, size);
 				}
 				else
-					stepFigure(map, size);
-			}
+				{
+					if (player.getPlayerTurn())
+					{
+						if (!botMateTurn(map, size))
+						{
+							return 0;
+						}
+						else
+						{
+							player.changeColorStep();
+							player.changePlayerTurn();
+						}
+					}
+					else
+						stepFigure(map, size);
+				}
 
 
-			system("cls");
+				system("cls");
 
-		} while (true);
+			} while (true);
+		}
+		else
+		{
+			bool endGameCheck = false;
+			SetConsoleOutputCP(CP_UTF8);
+			SetConsoleCP(CP_UTF8);
+			const int size = 8;
+			Figure** map = mapCreate(size);
+			firstFillingMap(map, size);
+			do
+			{
+				endGameCheck = false;
+
+				printMap(map, size);
+
+				matCheck(map, size, false);
+
+				if (!player.getMate())
+				{
+					if (player.getPlayerTurn())
+						botTurn(map, size);
+					else
+						stepFigure(map, size);
+				}
+				else
+				{
+					if (player.getPlayerTurn())
+					{
+						if (!botMateTurn(map, size))
+						{
+							return 0;
+						}
+						else
+						{
+							player.changeColorStep();
+							player.changePlayerTurn();
+						}
+					}
+					else
+						stepFigure(map, size);
+				}
+
+
+				system("cls");
+
+			} while (true);
+		}
 	}
 	else
 	{
-
-		player.changePlayerTurn();
-		player.changeColorStep();
 		bool endGameCheck = false;
 		SetConsoleOutputCP(CP_UTF8);
 		SetConsoleCP(CP_UTF8);
@@ -74,30 +120,8 @@ int main()
 
 			matCheck(map, size, false);
 
-			if (!player.getMate())
-			{
-				if (player.getPlayerTurn())
-					botTurn(map, size);
-				else
-					stepFigure(map, size);
-			}
-			else
-			{
-				if (player.getPlayerTurn())
-				{
-					if (!botMateTurn(map, size))
-					{
-						return 0;
-					}
-					else
-					{
-						player.changeColorStep();
-						player.changePlayerTurn();
-					}
-				}
-				else
-					stepFigure(map, size);
-			}
+			
+			stepFigure(map, size);
 
 
 			system("cls");

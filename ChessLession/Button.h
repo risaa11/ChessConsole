@@ -55,4 +55,6 @@ public:
 
 bool selectStartColor();
 
+bool selectGameMode();
+
 #endif

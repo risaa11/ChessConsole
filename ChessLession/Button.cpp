@@ -26,15 +26,16 @@ void Button::draw() {
             if (i == 0 || i == size_y - 1) { cout << '-'; continue; }
             if (j == 0 || j == size_x - 1) { cout << '|'; continue; }
 
-            int a = size_y - textBuffer.size();
-            if ((i == size_y / 2 && j > padding_horizontal && textBuffer.size() > 0 && j > a / 2)
+            int a = size_x - textBuffer.size();
+
+            if ((i == size_y / 2 && j > padding_horizontal && textBuffer.size() > 0 && j >= a / 2)
                 && text == listt[resultAgeConfirm - 1].text) {
                 cout << "\033[30;47m" << textBuffer[0] << "\033[0m";
                 textBuffer.erase(0, 1);
                 continue;
             }
 
-            if (i == size_y / 2 && j > padding_horizontal && textBuffer.size() > 0 && j > a / 2) {
+            if (i == size_y / 2 && j > padding_horizontal && textBuffer.size() > 0 && j >= a / 2) {
                 cout << textBuffer[0];
                 textBuffer.erase(0, 1);
                 continue;
@@ -81,6 +82,7 @@ bool selectStartColor() {
         int valueAge = _getch();
         switch (valueAge) {
         case 13: 
+            listt.clear();
             if (resultAgeConfirm != 2)
             {
                 system("CLS");
@@ -100,6 +102,51 @@ bool selectStartColor() {
         case 77: 
             if (resultAgeConfirm < 2) 
                 resultAgeConfirm++; 
+            break;
+        }
+        system("CLS");
+    } while (true);
+}
+
+bool selectGameMode()
+{
+    bool sert = false;
+
+    do {
+        Button text(30, 15, "Select a game mode");
+        Button whiteColor(10, 10, "Play against a bot");
+        Button BlackColor(10, 10, "Play alone");
+
+        Column colorText({ &text, &whiteColor, &BlackColor });
+        listt.push_back(whiteColor);
+        listt.push_back(BlackColor);
+
+        Window screen1(100, 100, &colorText);
+        screen1.draw();
+
+        int valueAge = _getch();
+        switch (valueAge) {
+        case 13:
+            listt.clear();
+            if (resultAgeConfirm != 2)
+            {
+                system("CLS");
+                return true;
+            }
+            else
+            {
+                system("CLS");
+                return false;
+            }
+        case 72:
+        case 75:
+            if (resultAgeConfirm > 1)
+                resultAgeConfirm--;
+            break;
+        case 80:
+        case 77:
+            if (resultAgeConfirm < 2)
+                resultAgeConfirm++;
             break;
         }
         system("CLS");
