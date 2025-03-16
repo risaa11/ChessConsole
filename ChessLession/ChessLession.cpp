@@ -29,14 +29,14 @@ int main()
 
 				if (!player.getMate())
 				{
-					if (player.getPlayerTurn())
+					if (!player.getPlayerTurn())
 						botTurn(map, size);
 					else
 						stepFigure(map, size);
 				}
 				else
 				{
-					if (player.getPlayerTurn())
+					if (!player.getPlayerTurn())
 					{
 						if (!botMateTurn(map, size))
 						{
